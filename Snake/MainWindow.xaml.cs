@@ -197,7 +197,7 @@ public partial class SnakeWPF : Window
             snakeParts.RemoveAt(0);
         }
         // Next up, we'll add a new element to the snake, which will be the (new) head  
-        // Therefore, we mark all existing parts as non-head (body) elements and then  
+        // Therefore, we mark all existing parts as non-head (body) elements, then  
         // we make sure that they use the body brush
         foreach (SnakePart snakePart in snakeParts)
         {
