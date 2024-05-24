@@ -44,8 +44,9 @@ public partial class SnakeWPF : Window
     private SolidColorBrush foodBrush = Brushes.Red;
 
     private SolidColorBrush snakeBodyBrush = Brushes.Green;
-    private SolidColorBrush snakeHeadBrush = Brushes.LightGreen;
+    // private SolidColorBrush snakeHeadBrush = Brushes.LightGreen;
     private List<SnakePart> snakeParts = new List<SnakePart>();
+    private List<SnakeDirection> directionList = new List<SnakeDirection>(); 
 
     public enum SnakeDirection
     {
@@ -102,6 +103,45 @@ public partial class SnakeWPF : Window
 
     private void DrawSnake()
     {
+        ImageBrush headdirection = new ImageBrush();
+        
+        if (snakeDirection == SnakeDirection.Up)
+        {
+            directionList.Insert(0,SnakeDirection.Up);
+            // directionList.RemoveAt(snakeParts.Count - 1);
+            headdirection = new ImageBrush(new BitmapImage(new Uri("C:\\Users\\csl\\RiderProjects\\Snake\\Snake\\PNG\\Kopf_oben.png",
+                UriKind.Absolute)));
+            snakeParts[snakeParts.Count() - 1].bodydirection = new ImageBrush(new BitmapImage(new Uri("C:\\Users\\csl\\RiderProjects\\Snake\\Snake\\PNG\\Körper_oben.png",
+                UriKind.Absolute)));
+        }
+        else if (snakeDirection == SnakeDirection.Right)
+        {
+            directionList.Insert(0,SnakeDirection.Right);
+            // directionList.RemoveAt(snakeParts.Count - 1);
+            headdirection = new ImageBrush(new BitmapImage(new Uri("C:\\Users\\csl\\RiderProjects\\Snake\\Snake\\PNG\\Kopf_rechts.png",
+                UriKind.Absolute)));
+            snakeParts[snakeParts.Count() - 1].bodydirection = new ImageBrush(new BitmapImage(new Uri("C:\\Users\\csl\\RiderProjects\\Snake\\Snake\\PNG\\Körper_rechts.png",
+                UriKind.Absolute)));
+        }
+        else if (snakeDirection == SnakeDirection.Down)
+        {
+            directionList.Insert(0,SnakeDirection.Down);
+            // directionList.RemoveAt(snakeParts.Count - 1);
+            headdirection = new ImageBrush(new BitmapImage(new Uri("C:\\Users\\csl\\RiderProjects\\Snake\\Snake\\PNG\\Kopf_unten.png",
+                UriKind.Absolute)));
+            snakeParts[snakeParts.Count() - 1].bodydirection = new ImageBrush(new BitmapImage(new Uri("C:\\Users\\csl\\RiderProjects\\Snake\\Snake\\PNG\\Körper_unten.png",
+                UriKind.Absolute)));
+        }
+        else if (snakeDirection == SnakeDirection.Left)
+        {
+            directionList.Insert(0,SnakeDirection.Left);
+            // directionList.RemoveAt(snakeParts.Count - 1);
+            headdirection = new ImageBrush(new BitmapImage(new Uri("C:\\Users\\csl\\RiderProjects\\Snake\\Snake\\PNG\\Kopf_links.png",
+                UriKind.Absolute)));
+            snakeParts[snakeParts.Count() - 1].bodydirection = new ImageBrush(new BitmapImage(new Uri("C:\\Users\\csl\\RiderProjects\\Snake\\Snake\\PNG\\Körper_links.png",
+                UriKind.Absolute)));
+        }
+        
         foreach (SnakePart snakePart in snakeParts)
         {
             if (snakePart.UiElement == null)
@@ -110,7 +150,7 @@ public partial class SnakeWPF : Window
                 {
                     Width = SnakeSquareSize,
                     Height = SnakeSquareSize,
-                    Fill = (snakePart.IsHead ? snakeHeadBrush : snakeBodyBrush)
+                    Fill = (snakePart.IsHead ? headdirection : snakePart.bodydirection)
                 };
                 GameArea.Children.Add(snakePart.UiElement);
                 Canvas.SetTop(snakePart.UiElement, snakePart.Position.Y);
@@ -139,6 +179,11 @@ public partial class SnakeWPF : Window
         currentScore = 0;
         snakeLength = SnakeStartLength;
         snakeDirection = SnakeDirection.Right;
+        
+        directionList.Add(SnakeDirection.Right);
+        directionList.Add(SnakeDirection.Right);
+        directionList.Add(SnakeDirection.Right);
+        
         snakeParts.Add(new SnakePart() { Position = new Point(SnakeSquareSize * 5, SnakeSquareSize * 5) });
         gameTickTimer.Interval = TimeSpan.FromMilliseconds(SnakeStartSpeed);
 
@@ -213,7 +258,7 @@ public partial class SnakeWPF : Window
         // we make sure that they use the body brush
         foreach (SnakePart snakePart in snakeParts)
         {
-            (snakePart.UiElement as Rectangle).Fill = snakeBodyBrush;
+            (snakePart.UiElement as Rectangle).Fill = snakePart.bodydirection;
             snakePart.IsHead = false;
         }
 
@@ -362,6 +407,8 @@ public partial class SnakeWPF : Window
 
     private void EndGame()
     {
+        directionList.Clear();
+        
         bool isNewHighscore = false;
         if (currentScore > 0)
         {
