@@ -54,7 +54,7 @@
             <Canvas Name="GameArea" ClipToBounds="True" Width="400" Height="400">
                   
                 <Border BorderBrush="Silver" BorderThickness="2" Width="300" Height="300" Canvas.Left="50" Canvas.Top="50" Name="bdrWelcomeMessage" Panel.ZIndex="1">
-                    <StackPanel Orientation="Vertical" Background="AliceBlue">
+                    <StackPanel Orientation="Vertical" Background="Gray">
                         <TextBlock FontWeight="Bold" FontSize="50" HorizontalAlignment="Center" Margin="0,20,0,0">Snake</TextBlock>
                         <TextBlock TextWrapping="Wrap" Margin="20" FontSize="16">Use the Arrow keys to control the green snake. Make it eat the red apples, but be sure not to crash into the walls or the tail of the snake!</TextBlock>
                         <TextBlock FontWeight="Bold" HorizontalAlignment="Center" FontSize="24" Foreground="Maroon">Press SPACE to start!</TextBlock>
@@ -63,7 +63,7 @@
                 </Border>
                 
                 <Border BorderBrush="Silver" BorderThickness="2" Width="300" Height="300" Canvas.Left="50" Canvas.Top="50" Name="bdrHighscoreList" Panel.ZIndex="1" Visibility="Collapsed">
-                    <StackPanel Orientation="Vertical" Background="AliceBlue">
+                    <StackPanel Orientation="Vertical" Background="Gray">
                         <Border BorderThickness="0,0,0,2" BorderBrush="Silver" Margin="0,10">
                             <TextBlock HorizontalAlignment="Center" FontSize="34" FontWeight="Bold">High Score List</TextBlock>
                         </Border>
@@ -81,7 +81,7 @@
                 </Border>
                 
                 <Border BorderBrush="Silver" BorderThickness="2" Width="300" Height="300" Canvas.Left="50" Canvas.Top="50" Name="bdrNewHighscore" Panel.ZIndex="1" Visibility="Collapsed">  
-                    <StackPanel Orientation="Vertical" Background="AliceBlue">  
+                    <StackPanel Orientation="Vertical" Background="Gray">  
                         <TextBlock HorizontalAlignment="Center" FontSize="34" FontWeight="Bold" Margin="20">New Highscore!</TextBlock>  
                         <TextBlock HorizontalAlignment="Center" TextWrapping="Wrap" FontSize="16">  
                             Congratulations - you made it into the SnakeWPF highscore list! Please enter your name below...  
@@ -92,7 +92,7 @@
                 </Border>
                 
                 <Border BorderBrush="Silver" BorderThickness="2" Width="300" Height="300" Canvas.Left="50" Canvas.Top="50" Name="bdrEndOfGame" Panel.ZIndex="1" Visibility="Collapsed">
-                    <StackPanel Orientation="Vertical" Background="AliceBlue">
+                    <StackPanel Orientation="Vertical" Background="Gray">
                         <TextBlock HorizontalAlignment="Center" FontSize="40" FontWeight="Bold" Margin="0,20,0,0">Oh no!</TextBlock>
                         <TextBlock HorizontalAlignment="Center" FontSize="26" FontWeight="Bold">...you died!</TextBlock>
                         <TextBlock Margin="20" TextAlignment="Center" FontSize="16">Your score: </TextBlock>
