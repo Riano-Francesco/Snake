@@ -12,4 +12,15 @@
       <PackageReference Include="System.Speech" Version="9.0.0-preview.4.24266.19" />
     </ItemGroup>
 
+    <ItemGroup>
+      <None Remove="PNG\Food.png" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <None Remove="PNG\Food_new.png" />
+      <Resource Include="PNG\Food_new.png">
+        <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      </Resource>
+    </ItemGroup>
+
 </Project>

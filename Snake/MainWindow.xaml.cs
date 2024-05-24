@@ -160,12 +160,13 @@ public partial class SnakeWPF : Window
         {
             Width = SnakeSquareSize,
             Height = SnakeSquareSize,
-            Fill = foodBrush
+            Fill = new ImageBrush(new BitmapImage(new Uri("C:\\Users\\csl\\RiderProjects\\Snake\\Snake\\PNG\\Food_new.png", UriKind.Absolute)))
         };
         GameArea.Children.Add(snakeFood);
         Canvas.SetTop(snakeFood, foodPosition.Y);
         Canvas.SetLeft(snakeFood, foodPosition.X);
     }
+    
 
     private Point GetNextFoodPosition()
     {
