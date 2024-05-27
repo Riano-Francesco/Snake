@@ -18,7 +18,7 @@
         </CollectionViewSource>
     </Window.Resources>
     
-    <DockPanel Background="Black">  
+    <DockPanel Background="SaddleBrown">  
         <Grid DockPanel.Dock="Top" Name="pnlTitleBar">  
             <Grid.ColumnDefinitions>  
                 <ColumnDefinition Width="*" />  
@@ -35,17 +35,17 @@
                 </Style>  
             </Grid.Resources>  
 
-            <WrapPanel Margin="10,0,0,0">  
-                <TextBlock>Score:</TextBlock>  
+            <WrapPanel Background="Black" Margin="0,0,0,0">  
+                <TextBlock Margin="10,0,0,0">Score:</TextBlock>  
                 <TextBlock Name="tbStatusScore">0</TextBlock>  
             </WrapPanel>  
             
-            <WrapPanel Grid.Column="1">  
+            <WrapPanel Background="Black" Grid.Column="1">  
                 <TextBlock>Speed:</TextBlock>  
                 <TextBlock Name="tbStatusSpeed">0</TextBlock>  
             </WrapPanel>  
             
-            <Button Grid.Column="2" DockPanel.Dock="Right" Background="Transparent" Foreground="White" 
+            <Button Grid.Column="2" DockPanel.Dock="Right" Background="Black" Foreground="White" 
                     FontWeight="Bold" FontSize="20" BorderThickness="0" Name="btnClose" 
                     Click="BtnClose_Click" Padding="10,0">X</Button>  
         </Grid>  
@@ -55,10 +55,19 @@
                   
                 <Border BorderBrush="Silver" BorderThickness="2" Width="300" Height="300" Canvas.Left="50" Canvas.Top="50" Name="bdrWelcomeMessage" Panel.ZIndex="1">
                     <StackPanel Orientation="Vertical" Background="Gray">
+                        
                         <TextBlock FontWeight="Bold" FontSize="50" HorizontalAlignment="Center" Margin="0,20,0,0">Snake</TextBlock>
-                        <TextBlock TextWrapping="Wrap" Margin="20" FontSize="16">Use the Arrow keys to control the green snake. Make it eat the red apples, but be sure not to crash into the walls or the tail of the snake!</TextBlock>
+                        <TextBlock TextWrapping="Wrap" Margin="20" FontSize="16">Use the Arrow keys to control the green snake. 
+                            Make it eat the red apples, but be sure not to crash into the walls or the tail of the snake!</TextBlock>
                         <TextBlock FontWeight="Bold" HorizontalAlignment="Center" FontSize="24" Foreground="Maroon">Press SPACE to start!</TextBlock>
-                        <Button Margin="20" Name="btnShowHighscoreList" Click="BtnShowHighscoreList_Click" HorizontalAlignment="Center" Padding="10,3">Show High Score List...</Button>
+                        
+                        <Button Margin="20" Name="btnShowHighscoreList" Click="BtnShowHighscoreList_Click" HorizontalAlignment="Center" 
+                                Padding="10,3" Content="Show High Score List">
+                            <Button.Effect>
+                                <DropShadowEffect Direction="330" Color="Black" Opacity="0.5" BlurRadius="4"/>
+                            </Button.Effect>
+                        </Button>
+                        
                     </StackPanel>
                 </Border>
                 
@@ -69,6 +78,7 @@
                         </Border>
                         <ItemsControl ItemsSource="{Binding Source={StaticResource HighScoreListViewSource}}">
                             <ItemsControl.ItemTemplate>
+                                
                                 <DataTemplate>
                                     <DockPanel Margin="7">
                                         <TextBlock Text="{Binding PlayerName}" DockPanel.Dock="Left" FontSize="22"></TextBlock>
@@ -87,7 +97,12 @@
                             Congratulations - you made it into the SnakeWPF highscore list! Please enter your name below...  
                         </TextBlock>  
                         <TextBox Name="txtPlayerName" FontSize="28" FontWeight="Bold" MaxLength="8" Margin="20" HorizontalContentAlignment="Center"></TextBox>  
-                        <Button Name="btnAddToHighscoreList" FontSize="16" HorizontalAlignment="Center" Click="BtnAddToHighscoreList_Click" Padding="10,5">Add to highscore list</Button>  
+                        <Button Name="btnAddToHighscoreList" FontSize="16" HorizontalAlignment="Center" Click="BtnAddToHighscoreList_Click" 
+                                Padding="10,5" Content="Add to highscore list">
+                            <Button.Effect>
+                                <DropShadowEffect Direction="330" Color="Black" Opacity="0.5" BlurRadius="4"/>
+                            </Button.Effect>
+                        </Button>  
                     </StackPanel>  
                 </Border>
                 

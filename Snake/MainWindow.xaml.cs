@@ -12,6 +12,7 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using System.Collections.ObjectModel;
 using System.Diagnostics;
+using System.Globalization;
 
 namespace Snake;
 
@@ -32,7 +33,7 @@ public partial class SnakeWPF : Window
     private const int SnakeSquareSize = 20;
     private const int SnakeStartLength = 3;
     private const int SnakeStartSpeed = 400;
-    private const int SnakeSpeedThreshold = 10;
+    private const int SnakeSpeedThreshold = 40;
 
     private int snakeLength;
     private int currentScore = 0;
@@ -78,8 +79,15 @@ public partial class SnakeWPF : Window
                 Width = SnakeSquareSize,
                 Height = SnakeSquareSize,
                 // If in einer zeile geschrieben, geiler scheiß
-                Fill = nextIsOdd ? Brushes.Gray : Brushes.Black
+                Fill = nextIsOdd ? Brushes.ForestGreen : Brushes.ForestGreen
             };
+
+            if (nextX == 0 || nextY == 0 || nextX == GameArea.ActualWidth - 20 || nextY == GameArea.ActualHeight - 20)
+            {
+                rect.Fill = new ImageBrush(new BitmapImage(new Uri("C:\\Users\\csl\\RiderProjects\\Snake\\Snake\\PNG\\bush_new.png",
+                    UriKind.Absolute))); 
+            }
+            
             GameArea.Children.Add(rect);
             Canvas.SetTop(rect, nextY);
             Canvas.SetLeft(rect, nextX);
@@ -113,6 +121,9 @@ public partial class SnakeWPF : Window
                 UriKind.Absolute)));
             snakeParts[snakeParts.Count() - 1].bodydirection = new ImageBrush(new BitmapImage(new Uri("C:\\Users\\csl\\RiderProjects\\Snake\\Snake\\PNG\\Körper_oben.png",
                 UriKind.Absolute)));
+            snakeParts[snakeParts.Count() - 1].taildirection = new ImageBrush(new BitmapImage(new Uri(
+                "C:\\Users\\csl\\RiderProjects\\Snake\\Snake\\PNG\\tail_oben.png",
+                UriKind.Absolute)));
         }
         else if (snakeDirection == SnakeDirection.Right)
         {
@@ -121,6 +132,9 @@ public partial class SnakeWPF : Window
             headdirection = new ImageBrush(new BitmapImage(new Uri("C:\\Users\\csl\\RiderProjects\\Snake\\Snake\\PNG\\Kopf_rechts.png",
                 UriKind.Absolute)));
             snakeParts[snakeParts.Count() - 1].bodydirection = new ImageBrush(new BitmapImage(new Uri("C:\\Users\\csl\\RiderProjects\\Snake\\Snake\\PNG\\Körper_rechts.png",
+                UriKind.Absolute)));
+            snakeParts[snakeParts.Count() - 1].taildirection = new ImageBrush(new BitmapImage(new Uri(
+                "C:\\Users\\csl\\RiderProjects\\Snake\\Snake\\PNG\\tail_rechts.png",
                 UriKind.Absolute)));
         }
         else if (snakeDirection == SnakeDirection.Down)
@@ -131,6 +145,9 @@ public partial class SnakeWPF : Window
                 UriKind.Absolute)));
             snakeParts[snakeParts.Count() - 1].bodydirection = new ImageBrush(new BitmapImage(new Uri("C:\\Users\\csl\\RiderProjects\\Snake\\Snake\\PNG\\Körper_unten.png",
                 UriKind.Absolute)));
+            snakeParts[snakeParts.Count() - 1].taildirection = new ImageBrush(new BitmapImage(new Uri(
+                "C:\\Users\\csl\\RiderProjects\\Snake\\Snake\\PNG\\tail_unten.png",
+                UriKind.Absolute)));
         }
         else if (snakeDirection == SnakeDirection.Left)
         {
@@ -139,6 +156,9 @@ public partial class SnakeWPF : Window
             headdirection = new ImageBrush(new BitmapImage(new Uri("C:\\Users\\csl\\RiderProjects\\Snake\\Snake\\PNG\\Kopf_links.png",
                 UriKind.Absolute)));
             snakeParts[snakeParts.Count() - 1].bodydirection = new ImageBrush(new BitmapImage(new Uri("C:\\Users\\csl\\RiderProjects\\Snake\\Snake\\PNG\\Körper_links.png",
+                UriKind.Absolute)));
+            snakeParts[snakeParts.Count() - 1].taildirection = new ImageBrush(new BitmapImage(new Uri(
+                "C:\\Users\\csl\\RiderProjects\\Snake\\Snake\\PNG\\tail_links.png",
                 UriKind.Absolute)));
         }
         
@@ -156,6 +176,11 @@ public partial class SnakeWPF : Window
                 Canvas.SetTop(snakePart.UiElement, snakePart.Position.Y);
                 Canvas.SetLeft(snakePart.UiElement, snakePart.Position.X);
             }
+        }
+
+        if (snakeParts.Count > 2)
+        {
+            (snakeParts[0].UiElement as Rectangle).Fill = snakeParts[1].taildirection;
         }
     }
 
@@ -207,18 +232,18 @@ public partial class SnakeWPF : Window
             Height = SnakeSquareSize,
             Fill = new ImageBrush(new BitmapImage(new Uri("C:\\Users\\csl\\RiderProjects\\Snake\\Snake\\PNG\\Food_new.png", UriKind.Absolute)))
         };
+        
         GameArea.Children.Add(snakeFood);
         Canvas.SetTop(snakeFood, foodPosition.Y);
         Canvas.SetLeft(snakeFood, foodPosition.X);
     }
     
-
     private Point GetNextFoodPosition()
     {
-        int maxX = (int)(GameArea.ActualWidth / SnakeSquareSize);
-        int maxY = (int)(GameArea.ActualHeight / SnakeSquareSize);
-        int foodX = rnd.Next(0, maxX) * SnakeSquareSize;
-        int foodY = rnd.Next(0, maxY) * SnakeSquareSize;
+        int maxX = (int)((GameArea.ActualWidth - 20) / SnakeSquareSize);
+        int maxY = (int)((GameArea.ActualHeight - 20) / SnakeSquareSize);
+        int foodX = rnd.Next(1, maxX) * SnakeSquareSize;
+        int foodY = rnd.Next(1, maxY) * SnakeSquareSize;
 
         foreach (SnakePart snakePart in snakeParts)
         {
@@ -226,7 +251,6 @@ public partial class SnakeWPF : Window
             {
                 return GetNextFoodPosition();
             }
-
         }
 
         return new Point(foodX, foodY);
